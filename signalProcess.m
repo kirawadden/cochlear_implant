@@ -14,7 +14,7 @@ function signalProcess(file_audio)
     %sound(sampleData, Fs);
 
     %rewrites the audio to a new file
-    audiowrite(strcat('new_file.wav', file_audio), sampleData, Fs);
+    %audiowrite(strcat('new_file.wav', file_audio), sampleData, Fs);
 
     
     %if input signal is not 16kHz, downsample it to 16 kHz
@@ -30,15 +30,13 @@ function signalProcess(file_audio)
         end
     end
     
-    %find the FT of the signal
-    ftSignal = fft(sampleData);
-    f = linspace(0, Fs, sampleNum);
-    plotSignal(f, abs(ftSignal), 'T Audio Signal FT', 'frequency (Hz)')
-     
-    %plots the audio data as a function of the sample number
+    %plots the audio data as a function of the time
     x = linspace(0, sampleNum/Fs, sampleNum);
     plotSignal(x, sampleData, 'Audio Signal Original', 'time (s)')
     
+    %find the FT of the signal (only the positive side)
+    FT_Signal(sampleData, Fs);
+
 end
 
 
