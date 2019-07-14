@@ -33,22 +33,12 @@ function signalProcess(file_audio)
     %find the FT of the signal
     ftSignal = fft(sampleData);
     f = linspace(0, Fs, sampleNum);
-    
-    %plotSignal(1:sampleNum, ftSignal, 'Audio Signal FT', 'frequency (Hz)')
+    plotSignal(f, abs(ftSignal), 'T Audio Signal FT', 'frequency (Hz)')
      
     %plots the audio data as a function of the sample number
     x = linspace(0, sampleNum/Fs, sampleNum);
     plotSignal(x, sampleData, 'Audio Signal Original', 'time (s)')
     
-    figure
-    subplot(2,1,1)
-    plot(f, abs(ftSignal))
-    title('FT Test')
-    xlim([0, Fs]);
-    ylim([0, 400]);
-    xlabel('f (Hz)')
-    ylabel('magnitude')
-    Fs
 end
 
 
