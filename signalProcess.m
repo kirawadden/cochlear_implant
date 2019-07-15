@@ -45,37 +45,41 @@ function signalProcess(file_audio)
 %     xlabel('Time');
 %     ylabel('Audio Signal');
     
-    %plots the audio data as a function of the time
-    x = linspace(0, sampleNum/Fs, sampleNum);
-    plotSignal(x, sampleData, 'Audio Signal Original', 'time (s)')
+   % Sets the passband frequency for the channels
+   channel = [[100, 120]; [120,200];[200,240];[240,500];[500,1000]; ...
+             [1000,2000];[2000,2700];[2700,3400];[3400,5000];[5000,6000];[6000,7900]];
+   
+   % Creates empty arrays to hold the filtered and rectified signals
+   filteredSamples = zeros(length(sampleData),length(channel));
+   rectifiedSamples = zeros(length(sampleData),length(channel));
+   
+   % Plot the audio sample
+   t = linspace(0, sampleNum/Fs, sampleNum);
+   plotAudioData(t, sampleData, ['Unfiltered Audio Sample ' string(file_audio)], 'time (s)'); %plots audio data as a function of time
+   
+   % Filter the signal through all channels
+   filteredSamples = KaiserFilterSignals(filteredSamples, sampleData, t, channel); % plots all filtered signals on one plot with many subplots
+   
+   % Plot the Fourier Transform of the filtered signals per channel
+   plotFourierTransforms(Fs, filteredSamples); % fourier transforms and plots all on one graph
+   
+   % Envelop the signals
+   rectifiedSamples = abs(filteredSamples); % Rectify the filtered signals
+   plotLpfSignal(t, rectifiedSamples); %plots the lpf of the rectified signal
 
-    t = (0:length(sampleData)-1)/Fs;
-    channel = [[100, 120]; [120,200];[200,240];[240,500];[500,1000];[1000,2000];[2000,2700];[2700,3400];[3400,5000];[5000,6000];[6000,7900]];
     
-    for i = 1:length(channel)
-        hd = kaiser_filter(channel(i,1),channel(i,2));
-        filtered_sample = filter(hd, sampleData);
-        figure
-        plot(t,filtered_sample);
-        title(['Channel ',num2str(i)]);
-        ylabel('Magnitude')
-        xlabel('Time (s)')
-        ylim([-0.8 0.8]);
-    end
-    
-    figure(); hold on
-    plot(t,sampleData);
-    for i = 1:11
-        hd = kaiser_filter(channel(i,1),channel(i,2));
-        filtered_sample = filter(hd, sampleData);
-        plot(t,filtered_sample);
-        title('Channels + Sample Data');
-        ylabel('Magnitude')
-        xlabel('Time (s)')
-    end
-    hold off
+%     figure(); hold on
+%     plot(t,sampleData);
+%     for i = 1:11
+%         hd = kaiser_filter(channel(i,1),channel(i,2));
+%         filtered_sample = filter(hd, sampleData);
+%         plot(t,filtered_sample);
+%         title('Channels + Sample Data');
+%         ylabel('Magnitude')
+%         xlabel('Time (s)')
+%     end
+%     hold off
 
 end
-
 
 
