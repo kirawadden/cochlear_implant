@@ -2,6 +2,14 @@ function filteredSignals = KaiserFilterSignals(filteredSignals, signal, t, chann
     % Plots all filtered signals on one plot with many subplots and
     % returns an array holding each filtered signal per channel in each 
     % column
+    % 
+    % Inputs:
+    %   filteredSignals     - An N X M empty array holding. M columns
+    %                         represents the number of signals to be stored and N rows of smplae
+    %                         data
+    %   signal              - A N x 1 array of signal data
+    %   t                   - An array holding discrete sampling times
+    %   channel             - Number of channels of the cochlear implant
     
     figure
     for i = 1:length(channel)

@@ -1,5 +1,11 @@
 function plotFourierTransforms(Fs, filteredSignals)
-% Fourier transforms each and plots all on one graph
+% Fourier transforms each and plots all in one image
+%
+%   Inputs:
+%       Fs              - Frequency sampling time
+%       filteredSignals - A N X M array holding the filtered signals in
+%                         each columns
+
 
     signalSize = size(filteredSignals);
     numSignals = signalSize(2); % Gets the number of signals passed through

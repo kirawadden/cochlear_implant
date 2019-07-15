@@ -50,8 +50,7 @@ function signalProcess(file_audio)
              [1000,2000];[2000,2700];[2700,3400];[3400,5000];[5000,6000];[6000,7900]];
    
    % Creates empty arrays to hold the filtered and rectified signals
-   filteredSamples = zeros(length(sampleData),length(channel));
-   rectifiedSamples = zeros(length(sampleData),length(channel));
+   filteredSamples  = zeros(length(sampleData),length(channel));
    
    % Plot the audio sample
    t = linspace(0, sampleNum/Fs, sampleNum);
@@ -67,18 +66,6 @@ function signalProcess(file_audio)
    rectifiedSamples = abs(filteredSamples); % Rectify the filtered signals
    plotLpfSignal(t, rectifiedSamples); %plots the lpf of the rectified signal
 
-    
-%     figure(); hold on
-%     plot(t,sampleData);
-%     for i = 1:11
-%         hd = kaiser_filter(channel(i,1),channel(i,2));
-%         filtered_sample = filter(hd, sampleData);
-%         plot(t,filtered_sample);
-%         title('Channels + Sample Data');
-%         ylabel('Magnitude')
-%         xlabel('Time (s)')
-%     end
-%     hold off
 
 end
 

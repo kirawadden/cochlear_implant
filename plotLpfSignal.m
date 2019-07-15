@@ -1,6 +1,10 @@
 function plotLpfSignal(t, signals)
-    % Passes the signal through a Low Pass Chebychev IIR Type 1 filter
-    % with a cut off frequency of 400 Hz and stop band attenuation 80 dB
+% Passes the signal through a Low Pass Chebychev IIR Type 1 filter
+% with a cut off frequency of 400 Hz and stop band attenuation 80 dB
+%
+%   t       - An array holding discrete time samplings
+%   signals - A N x M array holding the filtered signals in each column
+    
     
     signalSize = size(signals);
     numSignals = signalSize(2); % Gets the number of signals passed through
