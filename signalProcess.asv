@@ -1,0 +1,115 @@
+function signalProcess(file_audio)
+    %reads the data back into MATLAB using audioread
+    [sampleData, Fs] = audioread(file_audio);
+
+    %sampleNum is number of audio samples, channelNum is number of channels
+    [sampleNum, channelNum] = size(sampleData);
+
+    %converts a stereo channel to a single channel (mono channel)
+    if channelNum == 2
+        sampleData = sum(sampleData, 2);
+    end
+
+    %plays the audio
+    %sound(sampleData, Fs);
+
+    %rewrites the audio to a new file
+    %audiowrite(strcat('new_file.wav', file_audio), sampleData, Fs);
+
+    
+    %if input signal is not 16kHz, downsample it to 16 kHz
+    %if sampling rate is less then 16 kHz, select a different audio file
+    if Fs ~= 16e3
+        if Fs > 16e3
+            [P,Q] = rat(16e3/Fs);
+            sampleData = resample(sampleData, P, Q);
+            Fs = 16e3;
+            sampleNum = length(sampleData);
+        elseif Fs < 16e3
+            error('frequency is less than 16 kHz, please select a new audio file.');
+        end
+    end
+    
+    %plots the audio data as a function of the time
+    x = linspace(0, sampleNum/Fs, sampleNum);
+    plotSignal(x, sampleData, 'Audio Signal Original', 'time (s)')
+    
+    %find the FT of the signal (only the positive side)
+%     FT_Signal(sampleData, Fs, 'Single-Sided Amplitude Spectrum of X(t)');
+
+
+    t = (0:length(sampleData)-1)/Fs;
+    channel = [[100, 120]; [120,200];[200,240];[240,500];[500,1000];[1000,2000];[2000,2700];[2700,3400];[3400,5000];[5000,6000];[6000,7900]];
+%     filtered_sample = zeros(length(channel));
+    coefficients = zeros(11)
+    for i = 1:length(channel)
+        hd = kaiser_filter(channel(i,1),channel(i,2));
+        filtered_sample = filter(hd, sampleData);
+        figure
+        plot(t,filtered_sample);
+        title(['Channel ',num2str(i)]);
+        ylabel('Magnitude')
+        xlabel('Time (s)')
+        ylim([-0.8 0.8]);
+    end
+    
+%     for j = 1:length(filtered_sample)
+%         title(sprintf('Channel %s',j));
+ 
+%     end
+    
+%     xlabel('time');
+%     hd1 = ripple_1;
+%     hd2 = ripple_2;
+%     hd3 = ripple_3;
+%     hd4 = ripple_4;
+%     fs1 = filter(hd1, sampleData);
+%     fs2 = filter(hd2, sampleData);
+%     fs3 = filter(hd3, sampleData);
+%     fs4 = filter(hd4, sampleData);
+%     figure
+%     title('filtered and original data');
+%     plot(t,sampleData,t,fs4,t,fs3,t,fs2,t,fs1);
+%     legend('before filtering','ripple1','ripple2','ripple3','ripple4');
+%     ylabel('magnitude')
+%     xlabel('time'); 
+%     hd1 = kaiser_1;
+%     hd2 = kaiser_2;
+%     hd3 = kaiser_3;
+%     hd4 = kaiser_4;
+%     fvtool
+%     fs1 = filter(hd1, sampleData);
+%     fs2 = filter(hd2, sampleData);
+%     fs3 = filter(hd3, sampleData);
+%     fs4 = filter(hd4, sampleData);
+%     figure
+%     title('filtered and original data');
+%     plot(t,sampleData,t,fs4,t,fs3,t,fs2,t,fs1);
+%     legend('before filtering','kaiser1','kaiser2','kaiser3','kaiser4');
+%     ylabel('magnitude')
+%     xlabel('time'); 
+% %     figure
+% %     plot(t,fs1);
+% %     ylabel('magnitude')
+% %     xlabel('time');
+% %     figure
+% %     plot(t,fs2);
+% %     ylabel('magnitude')
+% %     xlabel('time');
+% %     figure
+% %     ylabel('magnitude')
+% %     xlabel('time');
+% %     plot(t,fs3);
+% %     figure
+% %     ylabel('magnitude')
+% %     xlabel('time');
+% %     plot(t,fs4);
+%     FT_Signal(sampleData, Fs, 'Sample Data FT');
+% %     FT_Signal(fs2, Fs, 'C110');
+% %     FT_Signal(fs3, Fs, 'C220');
+% %     FT_Signal(fs4, Fs, 'C280');
+
+end
+
+
+

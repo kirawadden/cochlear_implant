@@ -12,10 +12,6 @@ function signalProcess(file_audio)
 
     %plays the audio
     %sound(sampleData, Fs);
-
-    %rewrites the audio to a new file
-    %audiowrite(strcat('new_file.wav', file_audio), sampleData, Fs);
-
     
     %if input signal is not 16kHz, downsample it to 16 kHz
     %if sampling rate is less then 16 kHz, select a different audio file
@@ -33,9 +29,32 @@ function signalProcess(file_audio)
     %plots the audio data as a function of the time
     x = linspace(0, sampleNum/Fs, sampleNum);
     plotSignal(x, sampleData, 'Audio Signal Original', 'time (s)')
+
+    t = (0:length(sampleData)-1)/Fs;
+    channel = [[100, 120]; [120,200];[200,240];[240,500];[500,1000];[1000,2000];[2000,2700];[2700,3400];[3400,5000];[5000,6000];[6000,7900]];
     
-    %find the FT of the signal (only the positive side)
-    FT_Signal(sampleData, Fs);
+    for i = 1:length(channel)
+        hd = kaiser_filter(channel(i,1),channel(i,2));
+        filtered_sample = filter(hd, sampleData);
+        figure
+        plot(t,filtered_sample);
+        title(['Channel ',num2str(i)]);
+        ylabel('Magnitude')
+        xlabel('Time (s)')
+        ylim([-0.8 0.8]);
+    end
+    
+    figure(); hold on
+    plot(t,sampleData);
+    for i = 1:11
+        hd = kaiser_filter(channel(i,1),channel(i,2));
+        filtered_sample = filter(hd, sampleData);
+        plot(t,filtered_sample);
+        title('Channels + Sample Data');
+        ylabel('Magnitude')
+        xlabel('Time (s)')
+    end
+    hold off
 
 end
 

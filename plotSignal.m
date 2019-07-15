@@ -6,7 +6,7 @@ figure
 plot(x, y)
 title(title_name);
 xlabel(x_label);
-ylabel('magnitude');
+ylabel('Magnitude');
 
 end
 
