@@ -13,7 +13,7 @@ function filteredSignals = KaiserFilterSignals(filteredSignals, signal, t, chann
     
     figure
     for i = 1:length(channel)
-        hd = kaiser_filter(channel(i,1),channel(i,2));
+        hd = kaiser_filter_spec_ordr(channel(i,1),channel(i,2));
         filteredSignals(1:length(signal), i) = filter(hd, signal);
         subplot(length(channel),1,i);
         plot(t,filteredSignals(1:length(signal), i));

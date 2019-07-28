@@ -11,8 +11,6 @@ function Hd = kaiser_filter(Fpass1, Fpass2)
 Fs = 16000;  % Sampling Frequency
 
 Fstop1 = Fpass1 - 20;             % First Stopband Frequency
-% Fpass1 = 120;             % First Passband Frequency
-% Fpass2 = 200;             % Second Passband Frequency
 Fstop2 = Fpass2 + 20;             % Second Stopband Frequency
 Dstop1 = 0.01;            % First Stopband Attenuation
 Dpass  = 0.057501127785;  % Passband Ripple
