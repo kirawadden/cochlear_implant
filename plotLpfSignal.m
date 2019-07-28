@@ -1,9 +1,11 @@
-function plotLpfSignal(t, signals)
+function envelopedSignals = plotLpfSignal(t, signals)
 % Passes the signal through a Low Pass Chebychev IIR Type 1 filter
 % with a cut off frequency of 400 Hz and stop band attenuation 80 dB
 %
 %   t       - An array holding discrete time samplings
 %   signals - A N x M array holding the filtered signals in each column
+%   envelopedSignals - returns the signal data that has been passed through
+%                      LPF 
     
     
     signalSize = size(signals);
@@ -11,6 +13,7 @@ function plotLpfSignal(t, signals)
     sampleSize = signalSize(1); % Gets the sample size of each signal
     
     figure
+    envelopedSignals = zeros(sampleSize, numSignals);
     for i = 1:numSignals
         Hd = envelop_filter;
         lpfSample = filter(Hd,signals(1:sampleSize,i));
@@ -19,6 +22,6 @@ function plotLpfSignal(t, signals)
         title(['Rectified Signal for Channel ',num2str(i)]);
         ylabel('Magnitude')
         xlabel('Time (s)')
-        
+        envelopedSignals(1:sampleSize,i) = lpfSample;
     end
 end
