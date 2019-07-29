@@ -1,4 +1,4 @@
-function Hd = kaiser_filter_spec_ordr(fc1, fc2)
+function Hd = kaiser_filter_spec_ordr(n, fc1, fc2)
 %KAISER_50 Returns a discrete-time filter object.
 
 % MATLAB Code
@@ -10,7 +10,7 @@ function Hd = kaiser_filter_spec_ordr(fc1, fc2)
 % All frequency values are in Hz.
 Fs = 16000;  % Sampling Frequency
 
-N    = 50;       % Order
+N    = n;       % Order
 Fc1  = fc1;      % First Cutoff Frequency
 Fc2  = fc2;      % Second Cutoff Frequency
 flag = 'scale';  % Sampling Flag
