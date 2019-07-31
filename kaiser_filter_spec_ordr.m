@@ -1,4 +1,10 @@
 function Hd = kaiser_filter_spec_ordr(n, fc1, fc2)
+%   Passes signal through Kaiser Window FIR bandpass filter with adjustable order and
+%   cutoff frequencies
+%   INPUTS
+%   n - order
+%   fc1 - cutoff frequency 1
+%   fc2 - cutoff frequency 2
 %KAISER_50 Returns a discrete-time filter object.
 
 % MATLAB Code

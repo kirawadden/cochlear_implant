@@ -1,4 +1,6 @@
 function sampleData = sumSignals(file1)
+%   Overlays two audio signals together. Used to create speech in noise
+%   test signals. 
 %     rawSignal = {file1 file2};
 %     sampleDatas = zeros(1, length(rawSignal));
 %     for i = 1:length(rawSignal)

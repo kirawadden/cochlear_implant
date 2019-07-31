@@ -1,8 +1,10 @@
 function Hd = elliptic_filter_spec_ordr(n, fc1, fc2)
-% INPUTS
-% n - order
-% fc1 - cutoff frequency 1
-% fc2 - cutoff frequency 2
+%   Passes signal through Elliptic IIR bandpass filter with adjustable order and
+%   cutoff frequencies
+%   INPUTS
+%   n - order
+%   fc1 - cutoff frequency 1
+%   fc2 - cutoff frequency 2
 %ELLIPTIC_FILTER_SPEC_ORDR Returns a discrete-time filter object.
 
 % MATLAB Code
