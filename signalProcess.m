@@ -46,13 +46,13 @@ function signalProcess(file_audio)
    
    % Plot the audio sample
    t = linspace(0, sampleNum/Fs, sampleNum);
-   plotAudioData(t, sampleData, ['Unfiltered Audio Sample ' string(file_audio)], 'time (s)'); %plots audio data as a function of time
+%    plotAudioData(t, sampleData, ['Unfiltered Audio Sample ' string(file_audio)], 'time (s)'); %plots audio data as a function of time
    
    % Filter the signal through all channels
    filteredSamples = KaiserFilterSignals(filteredSamples, sampleData, t, channel); % plots all filtered signals on one plot with many subplots
    
    % Plot the Fourier Transform of the filtered signals per channel
-   plotFourierTransforms(Fs, filteredSamples); % fourier transforms and plots all on one graph
+%    plotFourierTransforms(Fs, filteredSamples); % fourier transforms and plots all on one graph
    
    % Envelop the signals
    rectifiedSamples = abs(filteredSamples); % Rectify the filtered signals
@@ -81,8 +81,9 @@ function signalProcess(file_audio)
    
    sound(signalFinal, Fs);
 %    Write filter audio sample to new file
-%    audiowrite('channel_test/connor_harvard_1.3_overlap.wav', signalFinal, Fs);
-
+   audiowrite('audio_files_to_submit/maya_bkb_7.3_B10.wav', signalFinal, Fs);
+   
+%    Record runtime
    timerVal = toc
 end
 
